@@ -21,11 +21,17 @@ class Author(models.Model):
 class LibraryItem(models.Model):
     title = models.CharField(max_length=255)
     authors = models.ManyToManyField('Author')
-    isbn = models.CharField(max_length=255, blank=True)
-    source = models.CharField(max_length=255, blank=True)
-    audio_format = models.CharField(max_length=4,
-        choices=AUDIO_FORMAT, blank=True)
     item_type = models.CharField(max_length=4, choices=LIBRARY_ITEM_TYPES)
 
     def __unicode__(self):
         return self.title
+
+class Book(LibraryItem):
+    isbn = models.CharField(max_length=255, blank=True)
+
+class Article(LibraryItem):
+    source = models.CharField(max_length=255, blank=True)
+
+class Audio(LibraryItem):
+    audio_format = models.CharField(max_length=4,
+        choices=AUDIO_FORMAT, blank=True)
